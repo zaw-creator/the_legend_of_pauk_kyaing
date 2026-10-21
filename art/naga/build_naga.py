@@ -1009,13 +1009,16 @@ def build_whiskers():
                  0.018, 0.002, MAT["horn"], head_root, n=8, power=0.7)
 
 
+SPIKE_SHIFT = 0.0  # animation: how much longer the spine is than at rest, so spikes keep their place from the tail
+
+
 def build_spikes(start=0.16, gap=0.3, stop_from_head=1.5):
     """Bony spikes along the spine, raked back, from near the tail up to where the neck scales begin."""
     clear("DorsalSpike")
     at = neck_sampler()
     pts, tang, nrm = compute_spine()
     total = sum((pts[i] - pts[i - 1]).length for i in range(1, len(pts)))
-    s, k = stop_from_head, 0
+    s, k = stop_from_head + SPIKE_SHIFT, 0
     while s < total * (1 - start):
         pt, t, nn, bb, rad = at(s)
         u = 1 - s / total

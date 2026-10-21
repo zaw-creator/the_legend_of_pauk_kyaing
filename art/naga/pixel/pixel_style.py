@@ -124,11 +124,22 @@ def sprite_cleanups(g):
     """Details that turn to noise at sprite size: one thick barbel a side, a bigger bone-white nose horn, fewer
     bigger collar scales, bigger eyes."""
     X, head_root, MAT = g["X"], g["head_root"], g["MAT"]
+    t = g.get("ANIM_T")  # set by pixel_anim.py: phase 0..1 of the idle loop; None for still renders
+
+    def sway(p, k):
+        """Barbels drift in a slow wave from root to tip during the idle loop."""
+        if t is None:
+            return p
+        f = k / 5
+        a = 2 * math.pi * (t - 0.35 * f)
+        return (p[0] + 0.03 * f * math.cos(a), p[1], p[2] + 0.06 * f * math.sin(a))
+
     g["clear"]("Whisker")
     for side in (-1, 1):
         g["tube"]("Whisker%d_0" % side,
-                  [(X(1.02), side * 0.10, 0.12), (X(1.10), side * 0.22, 0.03), (X(1.0), side * 0.36, -0.14),
-                   (0.58, side * 0.46, -0.28), (0.18, side * 0.50, -0.26), (-0.22, side * 0.52, -0.10)],
+                  [sway(p, k) for k, p in enumerate(
+                      [(X(1.02), side * 0.10, 0.12), (X(1.10), side * 0.22, 0.03), (X(1.0), side * 0.36, -0.14),
+                       (0.58, side * 0.46, -0.28), (0.18, side * 0.50, -0.26), (-0.22, side * 0.52, -0.10)])],
                   0.034, 0.006, MAT["horn"], head_root, n=8, power=0.7)
     # The nose horn: 1.5x long and 1.4x thick so it reads at sprite size, and bone white, so it never merges with the
     # dark barbels that start just in front of it (same colour, they read as one hair going through the nose).
