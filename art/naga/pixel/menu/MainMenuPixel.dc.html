@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Main menu, pixel art</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+body { margin: 0; background: #0B0D1C; }
+.mm { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #10142B; color: #E7DCC6; font-family: 'Crimson Pro', Georgia, serif; }
+.cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transition: transform 1.9s cubic-bezier(0.22, 0.7, 0.2, 1), transform-origin 1.9s cubic-bezier(0.22, 0.7, 0.2, 1); }
+.handheld { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; animation: mm-handheld 17s ease-in-out infinite; }
+.layer { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), filter 1.5s ease; }
+.fill { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+.px { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; image-rendering: pixelated; pointer-events: none; }
+.lantern { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 0; background: #E3B06A; box-shadow: 0 0 12px 4px rgba(211, 154, 78, 0.5), 0 0 52px 18px rgba(211, 154, 78, 0.16); animation: mm-flicker ease-in-out infinite; }
+.pool { position: absolute; width: 360px; height: 150px; margin: -30px 0 0 -180px; background: radial-gradient(ellipse at center, rgba(211, 154, 78, 0.2), rgba(211, 154, 78, 0) 70%); mix-blend-mode: screen; animation: mm-flicker ease-in-out infinite; }
+.ember { position: absolute; width: 4px; height: 4px; border-radius: 0; background: #E3B06A; box-shadow: 0 0 8px 2px rgba(211, 154, 78, 0.5); animation: mm-ember linear infinite; }
+.mote { position: absolute; border-radius: 0; background: #E7DCC6; animation: mm-mote ease-in-out infinite; }
+.mist { position: absolute; border-radius: 50%; background: #9DBBAA; filter: blur(34px); animation: mm-drift 28s ease-in-out infinite alternate; }
+.sway { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.sway svg { display: block; width: 1920px; height: 1080px; }
+.sway-r { transform-origin: 1840px 1100px; animation: mm-sway 9s ease-in-out infinite alternate; }
+.sway-l { transform-origin: -100px 40px; animation: mm-sway-l 11s ease-in-out infinite alternate; }
+.hero-px { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; animation: mm-breathe-px 4.5s steps(2, jump-none) infinite alternate; }
+.naga-live { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; animation: mm-naga 7s steps(3, jump-none) infinite alternate; }
+.shaft { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; mix-blend-mode: screen; filter: blur(12px); animation: mm-shaft 11s ease-in-out infinite alternate; }
+.streak { position: absolute; height: 2px; background: linear-gradient(90deg, rgba(205, 182, 122, 0), rgba(205, 182, 122, 0.55), rgba(205, 182, 122, 0)); filter: blur(1px); animation: mm-streak 8s ease-in-out infinite alternate; }
+.bat { position: absolute; left: 0; width: 28px; height: 14px; animation: mm-fly linear infinite; }
+.bat svg { display: block; width: 28px; height: 14px; transform-origin: 50% 100%; animation: mm-flap 0.45s ease-in-out infinite alternate; }
+.dusk { animation: mm-dusk 150s ease-in-out infinite alternate; }
+.title-wrap { animation: mm-lamp 5.5s ease-in-out infinite; }
+.title-ink { animation: mm-ink 3s cubic-bezier(0.3, 0.1, 0.2, 1) 0.5s both; }
+.item:focus-visible { outline: 1px solid #C4983F; outline-offset: 12px; }
+@keyframes mm-handheld { 0% { transform: translate3d(0, 0, 0) rotate(0deg); } 20% { transform: translate3d(-3px, 2px, 0) rotate(0.12deg); } 45% { transform: translate3d(2px, -3px, 0) rotate(-0.1deg); } 70% { transform: translate3d(-2px, -1px, 0) rotate(0.08deg); } 100% { transform: translate3d(0, 0, 0) rotate(0deg); } }
+@keyframes mm-twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
+@keyframes mm-flicker { 0% { opacity: 0.75; } 9% { opacity: 0.55; } 18% { opacity: 0.9; } 33% { opacity: 0.7; } 47% { opacity: 1; } 62% { opacity: 0.6; } 78% { opacity: 0.95; } 100% { opacity: 0.75; } }
+@keyframes mm-ember { 0% { transform: translate3d(0, 0, 0); opacity: 0; } 15% { opacity: 0.85; } 100% { transform: translate3d(var(--dx), -460px, 0); opacity: 0; } }
+@keyframes mm-mote { 0% { transform: translate3d(0, 0, 0); opacity: 0; } 20% { opacity: var(--o); } 80% { opacity: var(--o); } 100% { transform: translate3d(var(--dx), var(--dy), 0); opacity: 0; } }
+@keyframes mm-drift { from { transform: translate3d(-150px, 0, 0); } to { transform: translate3d(150px, 0, 0); } }
+@keyframes mm-sway { from { transform: rotate(-0.9deg); } to { transform: rotate(0.9deg); } }
+@keyframes mm-sway-l { from { transform: rotate(-0.6deg); } to { transform: rotate(0.7deg); } }
+@keyframes mm-breathe-px { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -4px, 0); } }
+@keyframes mm-naga { from { transform: translate3d(0, 4px, 0); } to { transform: translate3d(0, -4px, 0); } }
+@keyframes mm-glint { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.95; } }
+@keyframes mm-scarf { from { transform: rotate(-3deg); } to { transform: rotate(4deg); } }
+@keyframes mm-shaft { from { opacity: 0.45; } to { opacity: 1; } }
+@keyframes mm-streak { from { opacity: 0.25; transform: scaleX(0.85); } to { opacity: 0.7; transform: scaleX(1.05); } }
+@keyframes mm-fly { from { transform: translate3d(-160px, 0, 0); } to { transform: translate3d(2080px, -90px, 0); } }
+@keyframes mm-flap { from { transform: scaleY(1); } to { transform: scaleY(0.4); } }
+@keyframes mm-dusk { from { opacity: 1; } to { opacity: 0.05; } }
+@keyframes mm-lamp { 0%, 100% { filter: drop-shadow(0 0 10px rgba(211, 154, 78, 0.22)); } 30% { filter: drop-shadow(0 0 18px rgba(211, 154, 78, 0.4)); } 55% { filter: drop-shadow(0 0 8px rgba(211, 154, 78, 0.16)); } 80% { filter: drop-shadow(0 0 16px rgba(211, 154, 78, 0.34)); } }
+@keyframes mm-ink { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes mm-grain { 0% { transform: translate(0, 0); } 20% { transform: translate(-24px, 12px); } 40% { transform: translate(18px, -20px); } 60% { transform: translate(-10px, 26px); } 80% { transform: translate(22px, 8px); } 100% { transform: translate(0, 0); } }
+@media (prefers-reduced-motion: reduce) { .mm *, .mm { animation: none !important; } .cam, .layer { transition: none !important; } }
+</style>
+</helmet>
+<div class="mm" onMouseMove="{{ move }}">
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <filter id="mm-worn" x="-3%" y="-12%" width="106%" height="124%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="warp"/>
+        <feDisplacementMap in="SourceGraphic" in2="warp" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="11" result="grit"/>
+        <feColorMatrix in="grit" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.1 1.38" result="wear"/>
+        <feComposite in="rough" in2="wear" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="cam" style="transform-origin: {{ cam.ox }}px {{ cam.oy }}px; transform: scale({{ cam.s }}) translate({{ cam.tx }}px, {{ cam.ty }}px)">
+    <div class="handheld">
+
+      <div class="layer" style="transform: {{ L.moon }}">
+        <img class="px" src="/_blob/20873e63e799101c590bc1515a3be5ba" alt="">
+      </div>
+
+      <div class="layer" style="transform: {{ L.moon }}">
+        <div class="streak" style="left: 880px; top: 249px; width: 1200px"></div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.moon }}">
+        <sc-for list="{{ bats }}" as="b" hint-placeholder-count="3">
+          <div class="bat" style="top: {{ b.y }}px; animation-duration: {{ b.t }}s; animation-delay: {{ b.d }}s">
+            <svg viewBox="0 0 28 14" aria-hidden="true"><path d="M0 7 Q7 -1 14 7 Q21 -1 28 7 Q21 5 14 12 Q7 5 0 7 Z" fill="#0A0A12"/></svg>
+          </div>
+        </sc-for>
+      </div>
+
+      <div class="layer" style="transform: {{ L.mistBack }}">
+        <div class="mist" style="left: 160px; top: 520px; width: 900px; height: 150px; opacity: 0.12"></div>
+        <div class="mist" style="left: 900px; top: 610px; width: 1000px; height: 140px; opacity: 0.1; animation-duration: 34s; animation-delay: -10s"></div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.naga }}">
+        <div class="naga-live">
+          <img class="px" src="/_blob/b69b59000785f5bccd7894d9f7993b29" alt="">
+        </div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.palace }}">
+        <img class="px" src="/_blob/7517f269d9bb5b9a1b9a50e8c6537a81" alt="">
+        <div style="opacity: {{ lampOp }}; transition: opacity 1.2s ease">
+          <sc-for list="{{ palaceLanterns }}" as="l" hint-placeholder-count="11">
+            <div class="lantern" style="left: {{ l.x }}px; top: {{ l.y }}px; animation-duration: {{ l.t }}s; animation-delay: {{ l.d }}s"></div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.shafts }}">
+        <div class="shaft" style="background: linear-gradient(180deg, rgba(205, 182, 122, 0.2), rgba(205, 182, 122, 0) 85%); clip-path: polygon(1400px 320px, 1520px 320px, 1100px 920px, 800px 920px)"></div>
+        <div class="shaft" style="background: linear-gradient(180deg, rgba(205, 182, 122, 0.16), rgba(205, 182, 122, 0) 85%); clip-path: polygon(1450px 330px, 1560px 330px, 1500px 930px, 1250px 930px); animation-delay: -5s"></div>
+        <div class="shaft" style="background: linear-gradient(180deg, rgba(205, 182, 122, 0.12), rgba(205, 182, 122, 0) 80%); clip-path: polygon(1380px 330px, 1420px 330px, 640px 900px, 560px 900px); animation-delay: -8s"></div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.naga }}">
+        <div class="naga-live">
+          <img class="px" src="/_blob/0f16bc2300b2004eda4cbb773bc3c50b" alt="">
+        </div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.wall }}">
+        <img class="px" src="/_blob/25e630c0e10086f9e2977b5aed5f13c3" alt="">
+        <div style="opacity: {{ lampOp }}; transition: opacity 1.2s ease">
+          <sc-for list="{{ wallLanterns }}" as="l" hint-placeholder-count="8">
+            <div class="pool" style="left: {{ l.x }}px; top: {{ l.y }}px; animation-duration: {{ l.t }}s; animation-delay: {{ l.d }}s"></div>
+            <div class="lantern" style="left: {{ l.x }}px; top: {{ l.y }}px; animation-duration: {{ l.t }}s; animation-delay: {{ l.d }}s"></div>
+          </sc-for>
+        </div>
+        <div style="position: absolute; left: 1314px; top: 800px; width: 240px; height: 120px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(231, 220, 198, 0.4), rgba(231, 220, 198, 0) 70%); mix-blend-mode: screen; opacity: {{ nbOp }}; transition: opacity 1.2s ease"></div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.hero }}">
+        <div class="hero-px"><img class="px" src="/_blob/41b5dcb86b87aea0336c79b7fa70bee6" alt=""></div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.embers }}">
+        <sc-for list="{{ embers }}" as="e" hint-placeholder-count="20">
+          <div class="ember" style="left: {{ e.x }}px; top: {{ e.y }}px; --dx: {{ e.dx }}px; animation-duration: {{ e.t }}s; animation-delay: {{ e.d }}s"></div>
+        </sc-for>
+        <sc-for list="{{ motes }}" as="m" hint-placeholder-count="60">
+          <div class="mote" style="left: {{ m.x }}px; top: {{ m.y }}px; width: {{ m.s }}px; height: {{ m.s }}px; --dx: {{ m.dx }}px; --dy: {{ m.dy }}px; --o: {{ m.o }}; animation-duration: {{ m.t }}s; animation-delay: {{ m.d }}s"></div>
+        </sc-for>
+      </div>
+
+      <div class="layer" style="transform: {{ L.mistFront }}">
+        <div class="mist" style="left: -220px; top: 700px; width: 1000px; height: 200px; opacity: 0.1; animation-duration: 30s"></div>
+        <div class="mist" style="left: 800px; top: 850px; width: 1100px; height: 170px; opacity: 0.08; animation-duration: 36s; animation-delay: -12s"></div>
+      </div>
+
+      <div class="layer" style="transform: {{ L.trees }}">
+        <div class="sway sway-r">
+          <img class="px" src="/_blob/ac71bc697a30b1ea60de5b10fd526e75" alt="">
+        </div>
+        <div class="sway sway-l">
+          <img class="px" src="/_blob/be3d4646f297a38cafcaab4bdf31bbfc" alt="">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="fill" style="opacity: {{ dusk }}">
+    <div class="fill dusk" style="background: linear-gradient(180deg, rgba(122, 66, 44, 0) 25%, rgba(160, 92, 58, 0.42) 100%); mix-blend-mode: screen"></div>
+  </div>
+  <div class="fill" style="background: linear-gradient(180deg, rgba(44, 74, 82, 0.34) 0%, rgba(44, 74, 82, 0) 48%, rgba(123, 74, 45, 0.3) 100%); mix-blend-mode: soft-light"></div>
+  <div class="fill" style="background: linear-gradient(90deg, rgba(6, 7, 16, 0.6) 0%, rgba(6, 7, 16, 0.25) 34%, rgba(6, 7, 16, 0) 58%)"></div>
+  <div class="fill" style="box-shadow: inset 0 0 260px 60px rgba(8, 9, 22, 0.7)"></div>
+  <div style="position: absolute; left: -40px; top: -40px; width: 2000px; height: 1160px; opacity: {{ grain }}; mix-blend-mode: overlay; pointer-events: none; animation: mm-grain 1s steps(5) infinite">
+    <svg width="2000" height="1160" aria-hidden="true">
+      <filter id="mm-grain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <rect width="2000" height="1160" filter="url(#mm-grain)"/>
+    </svg>
+  </div>
+  <div class="fill" style="background: #06070F; opacity: {{ dimOp }}; transition: opacity 1.2s ease"></div>
+
+  <div style="position: absolute; left: 120px; top: 96px; width: 1100px">
+    <p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; font-size: 56px; line-height: 1; color: #E7DCC6; text-shadow: 0 2px 10px rgba(8, 9, 22, 0.85)">The Legend of</p>
+    <div class="title-wrap" style="margin-top: 8px">
+      <h1 class="title-ink" style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: 108px; line-height: 1; color: #C4983F; white-space: nowrap; text-shadow: 0 4px 0 #4A3212, 0 0 40px rgba(196, 152, 63, 0.22); filter: url(#mm-worn)">Maung Pauk Kyaing</h1>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 60px; top: 500px; width: 820px; height: 470px" onMouseLeave="{{ leave }}">
+    <div style="position: absolute; left: 0; top: 0; width: 820px; height: 470px; transform: {{ L.menu }}">
+      <sc-for list="{{ items }}" as="item" hint-placeholder-count="5">
+        <button class="item" onMouseEnter="{{ item.enter }}" onFocus="{{ item.enter }}" onClick="{{ item.press }}" style="position: absolute; left: {{ item.x }}px; top: {{ item.y }}px; display: flex; align-items: center; gap: 18px; padding: 0; border: 0; background: none; cursor: pointer; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 40px; line-height: 1; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; color: {{ item.color }}; text-shadow: 0 2px 12px rgba(8, 9, 22, 0.9); transition: left 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.5s ease">
+          <span style="display: block; height: 2px; width: {{ item.rule }}px; background: #C4983F; transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1)"></span>
+          {{ item.label }}
+          <span style="position: absolute; left: 74px; top: 52px; font-family: 'Crimson Pro', Georgia, serif; font-style: italic; font-weight: 400; font-size: 20px; letter-spacing: 0.04em; text-transform: none; color: rgba(231, 220, 198, 0.78); opacity: {{ item.capOp }}; transform: translateY({{ item.capY }}px); transition: opacity 0.6s ease, transform 0.6s ease">{{ item.cap }}</span>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 120px; bottom: 44px; font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(231, 220, 198, 0.72)">Act I Playtest Build</div>
+  <div style="position: absolute; right: 120px; bottom: 40px; display: flex; gap: 28px">
+    <button style="padding: 6px 0; border: 0; border-bottom: 1px solid #C4983F; background: none; cursor: pointer; font-family: 'Crimson Pro', Georgia, serif; font-weight: 600; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: #C4983F">English</button>
+    <button style="padding: 6px 0; border: 0; background: none; cursor: pointer; font-family: 'Crimson Pro', Georgia, serif; font-weight: 600; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(231, 220, 198, 0.62)">Burmese</button>
+  </div>
+
+  <div class="fill" style="background: #020308; opacity: {{ leaveOp }}; transition: opacity 1.4s ease"></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"grain":{"editor":"range","min":0,"max":0.3,"step":0.01,"default":0,"section":"Film"},"dusk":{"editor":"range","min":0,"max":1,"step":0.05,"default":0.6,"section":"Film"},"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.state || {};
+    const sel = st.sel === undefined ? -1 : st.sel;
+    const pressed = st.pressed === undefined ? -1 : st.pressed;
+    const mx = st.mx || 0;
+    const my = st.my || 0;
+    const rnd = (n) => { const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
+    const range = (n) => Array.from({ length: n }, (_, i) => i);
+    const cams = [
+      { ox: 1515, oy: 790, s: 1.26, tx: -90, ty: -10, far: 3, mid: 0.6, trees: 5, dim: 0, lamp: 1, nb: 0.25 },
+      { ox: 1430, oy: 860, s: 1.55, tx: -30, ty: -60, far: 5, mid: 1.4, trees: 7, dim: 0.05, lamp: 0.9, nb: 1 },
+      { ox: 430, oy: 820, s: 1.34, tx: 40, ty: -30, far: 4, mid: 1.2, trees: 6, dim: 0, lamp: 1, nb: 0.25 },
+      { ox: 1150, oy: 290, s: 1.3, tx: 0, ty: 50, far: 0, mid: 2, trees: 6, dim: 0, lamp: 0.85, nb: 0.25 },
+      { ox: 960, oy: 540, s: 1.04, tx: 0, ty: 0, far: 0.6, mid: 0, trees: 1, dim: 0.42, lamp: 0.5, nb: 0.1 }
+    ];
+    const idle = { ox: 960, oy: 560, s: 1, tx: 0, ty: 0, far: 0.6, mid: 0, trees: 2.2, dim: 0, lamp: 1, nb: 0.3 };
+    const cam = sel >= 0 ? cams[sel] : idle;
+    const push = pressed === 0 ? 1.2 : 1;
+    const nx = Math.max(-1, Math.min(1, mx * 0.5));
+    const ny = Math.max(-1, Math.min(1, my * 0.5));
+    const tf = (d) => `translate3d(${(nx * d).toFixed(1)}px, ${(ny * d * 0.4).toFixed(1)}px, 0)`;
+    const labels = ['New Game', 'Continue', 'Options', 'Credits', 'Quit'];
+    const caps = ['Leave the academy and take the road', 'Return to your notebook', 'Light, sound and controls', 'The people behind the legend', 'Leave the city for now'];
+    const palacePts = [[706, 625], [1374, 625], [770, 550], [1310, 550], [826, 482], [1254, 482], [878, 420], [1202, 420], [927, 363], [1153, 363], [520, 794]];
+    const wallPts = [[380, 826], [470, 826], [80, 806], [220, 806], [1500, 806], [1600, 806], [1640, 826], [1800, 826]];
+    return {
+      cam: { ox: cam.ox, oy: cam.oy, s: (cam.s * push).toFixed(3), tx: cam.tx, ty: cam.ty },
+      L: {
+        sky: tf(3), moon: tf(6), hills: tf(9), mistBack: tf(12), palace: tf(12), shafts: tf(14), naga: tf(16),
+        wall: tf(24), hero: tf(28), embers: tf(30), mistFront: tf(40), trees: tf(56), menu: tf(8)
+      },
+      B: { sky: (cam.far * 0.4).toFixed(1), far: cam.far, mid: cam.mid, trees: cam.trees },
+      lampOp: Math.min(1, cam.lamp).toFixed(2),
+      nbOp: cam.nb,
+      dimOp: cam.dim,
+      leaveOp: pressed >= 0 ? 0.92 : 0,
+      grain: this.props.grain ?? 0,
+      dusk: this.props.dusk ?? 0.6,
+      bats: range(3).map((i) => ({
+        y: 150 + Math.round(rnd(i + 1300) * 170),
+        t: (34 + rnd(i + 1400) * 18).toFixed(1),
+        d: (-rnd(i + 1500) * 40).toFixed(1)
+      })),
+      palaceLanterns: palacePts.map(([x, y], i) => ({
+        x, y, t: (2.6 + rnd(i + 500) * 1.8).toFixed(2), d: (-rnd(i + 600) * 4).toFixed(2)
+      })),
+      wallLanterns: wallPts.map(([x, y], i) => ({
+        x, y, t: (2.6 + rnd(i + 520) * 1.8).toFixed(2), d: (-rnd(i + 620) * 4).toFixed(2)
+      })),
+      embers: range(20).map((i) => ({
+        x: Math.round(560 + rnd(i + 700) * 900),
+        y: Math.round(760 + rnd(i + 800) * 180),
+        dx: Math.round((rnd(i + 900) - 0.5) * 90),
+        t: (7 + rnd(i + 1000) * 6).toFixed(2),
+        d: (-rnd(i + 1100) * 12).toFixed(2)
+      })),
+      motes: range(60).map((i) => ({
+        x: Math.round(300 + rnd(i + 2000) * 1400),
+        y: Math.round(160 + rnd(i + 2100) * 740),
+        s: (1 + rnd(i + 2200) * 1.8).toFixed(1),
+        dx: Math.round((rnd(i + 2300) - 0.5) * 120),
+        dy: Math.round((rnd(i + 2400) - 0.5) * 90),
+        o: (0.2 + rnd(i + 2500) * 0.35).toFixed(2),
+        t: (16 + rnd(i + 2600) * 18).toFixed(1),
+        d: (-rnd(i + 2700) * 30).toFixed(1)
+      })),
+      items: labels.map((label, i) => ({
+        label,
+        cap: caps[i],
+        x: 60 + Math.round(Math.sin(i * 0.9) * 34) + (i === sel ? 26 : 0),
+        y: 48 + i * 84,
+        color: i === sel ? '#C4983F' : (sel < 0 ? 'rgba(231, 220, 198, 0.8)' : 'rgba(231, 220, 198, 0.55)'),
+        rule: i === sel ? 56 : 0,
+        capOp: i === sel ? 1 : 0,
+        capY: i === sel ? 0 : -6,
+        enter: () => this.setState({ sel: i }),
+        press: () => {
+          this.setState({ pressed: i });
+          setTimeout(() => this.setState({ pressed: -1 }), 2600);
+        }
+      })),
+      leave: () => this.setState({ sel: -1 }),
+      move: (e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        this.setState({
+          mx: ((e.clientX - r.left) / r.width) * 2 - 1,
+          my: ((e.clientY - r.top) / r.height) * 2 - 1
+        });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+ "Gem-1": {
+  "x": 1110.8,
+  "y": 276.7,
+  "front": true,
+  "depth": -0.181
+ },
+ "Gem1": {
+  "x": 1110.8,
+  "y": 276.7,
+  "front": true,
+  "depth": -0.819
+ },
+ "ForeheadGem": {
+  "x": 1077.4,
+  "y": 262.1,
+  "front": true,
+  "depth": -0.5
+ }
+}

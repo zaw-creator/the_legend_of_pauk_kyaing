@@ -1,0 +1,32 @@
+{
+ "Gem-1": {
+  "x": 1228.5,
+  "y": 306.8,
+  "front": true,
+  "depth": -0.922
+ },
+ "Gem1": {
+  "x": 1277.3,
+  "y": 306.8,
+  "front": true,
+  "depth": -0.262
+ },
+ "ForeheadGem": {
+  "x": 1289.4,
+  "y": 295.9,
+  "front": true,
+  "depth": -0.78
+ },
+ "Pupil-1": {
+  "x": 1226.8,
+  "y": 304.2,
+  "front": true,
+  "depth": -1.015
+ },
+ "Pupil1": {
+  "x": 1286.5,
+  "y": 304.2,
+  "front": true,
+  "depth": -0.207
+ }
+}
